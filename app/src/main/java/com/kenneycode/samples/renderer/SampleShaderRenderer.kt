@@ -66,8 +66,8 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
     // a_position、a_textureCoordinate和s_texture的位置，与shader中写的对应
     // The location of a_position、a_textureCoordinate and s_texture, corresponding with which in shader
-    private val LOCATION_ATTRBUTE_POSITION = 0
-    private val LOCATION_ATTRBUTE_TEXTURE_COORDINATE = 1
+    private val LOCATION_ATTRIBUTE_POSITION = 0
+    private val LOCATION_ATTRIBUTE_TEXTURE_COORDINATE = 1
     private val LOCATION_UNIFORM_TEXTURE = 0
 
     override fun onDrawFrame(gl: GL10?) {
@@ -86,10 +86,10 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
         // 设置好状态，准备渲染
         // Set the status before rendering
-        GLES30.glEnableVertexAttribArray(LOCATION_ATTRBUTE_POSITION)
-        GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_POSITION, VERTEX_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, vertexDataBuffer)
-        GLES30.glEnableVertexAttribArray(LOCATION_ATTRBUTE_TEXTURE_COORDINATE)
-        GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
+        GLES30.glEnableVertexAttribArray(LOCATION_ATTRIBUTE_POSITION)
+        GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_POSITION, VERTEX_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, vertexDataBuffer)
+        GLES30.glEnableVertexAttribArray(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE)
+        GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
 
@@ -144,13 +144,13 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         vertexDataBuffer.put(vertexData)
         vertexDataBuffer.position(0)
 
-        // 启动对应位置的参数，这里直接使用LOCATION_ATTRBUTE_POSITION，而无需像OpenGL 2.0那样需要先获取参数的location
-        // Enable the parameter of the location. Here we can simply use LOCATION_ATTRBUTE_POSITION, while in OpenGL 2.0 we have to query the location of the parameter
-        GLES30.glEnableVertexAttribArray(LOCATION_ATTRBUTE_POSITION)
+        // 启动对应位置的参数，这里直接使用LOCATION_ATTRIBUTE_POSITION，而无需像OpenGL 2.0那样需要先获取参数的location
+        // Enable the parameter of the location. Here we can simply use LOCATION_ATTRIBUTE_POSITION, while in OpenGL 2.0 we have to query the location of the parameter
+        GLES30.glEnableVertexAttribArray(LOCATION_ATTRIBUTE_POSITION)
 
         // 指定a_position所使用的顶点数据
         // Specify the data of a_position
-        GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_POSITION, VERTEX_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, vertexDataBuffer)
+        GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_POSITION, VERTEX_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, vertexDataBuffer)
 
         // 将纹理坐标数据放入buffer中
         // Put the texture coordinates into the textureCoordinateDataBuffer
@@ -160,13 +160,13 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         textureCoordinateDataBuffer.put(textureCoordinateData)
         textureCoordinateDataBuffer.position(0)
 
-        // 启动对应位置的参数，这里直接使用LOCATION_ATTRBUTE_TEXTURE_COORDINATE，而无需像OpenGL 2.0那样需要先获取参数的location
-        // Enable the parameter of the location. Here we can simply use LOCATION_ATTRBUTE_TEXTURE_COORDINATE, while in OpenGL 2.0 we have to query the location of the parameter
-        GLES30.glEnableVertexAttribArray(LOCATION_ATTRBUTE_TEXTURE_COORDINATE)
+        // 启动对应位置的参数，这里直接使用LOCATION_ATTRIBUTE_TEXTURE_COORDINATE，而无需像OpenGL 2.0那样需要先获取参数的location
+        // Enable the parameter of the location. Here we can simply use LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, while in OpenGL 2.0 we have to query the location of the parameter
+        GLES30.glEnableVertexAttribArray(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE)
 
         // 指定a_textureCoordinate所使用的顶点数据
         // Specify the data of a_textureCoordinate
-        GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
+        GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
 
         // 创建图片纹理
         // Create texture for image
