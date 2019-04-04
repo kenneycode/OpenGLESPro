@@ -62,7 +62,7 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
     // 要渲染的图片纹理
     // The texture of the image to be rendered
-    private var imageTextue = 0
+    private var imageTexture = 0
 
     // a_position、a_textureCoordinate和s_texture的位置，与shader中写的对应
     // The location of a_position、a_textureCoordinate and s_texture, corresponding with which in shader
@@ -91,7 +91,7 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         GLES30.glEnableVertexAttribArray(LOCATION_ATTRBUTE_TEXTURE_COORDINATE)
         GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTextue)
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
 
         // 调用draw方法用TRIANGLES的方式执行渲染，顶点数量为3个
         // Call the draw method with GL_TRIANGLES to render 3 vertices
@@ -172,13 +172,13 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         // Create texture for image
         val textures = IntArray(1)
         GLES30.glGenTextures(textures.size, textures, 0)
-        imageTextue = textures[0]
+        imageTexture = textures[0]
 
         // 将图片解码并加载到纹理中
         // Decode image and load it into texture
                 GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
                 val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTextue)
+                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
                 val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
                 bitmap.copyPixelsToBuffer(b)
         b.position(0)
