@@ -35,7 +35,8 @@ class MainActivity : AppCompatActivity() {
     inner class MyAdapter : RecyclerView.Adapter<VH>() {
 
         private val sampleNames =
-            arrayOf(resources.getString(R.string.sample_0))
+            arrayOf(resources.getString(R.string.sample_0),
+                    resources.getString(R.string.sample_1))
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH {
             val view = LayoutInflater.from(p0.context).inflate(R.layout.layout_sample_list_item, p0, false)

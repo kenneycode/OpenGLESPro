@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">OpenGL3FeatureSamplesForAndroid</string>
     <string name="sample_0">着色器(Shader)</string>
+    <string name="sample_1">纹理数组(Texture Array)</string>
 </resources>

@@ -19,7 +19,8 @@ class SimpleActivity : AppCompatActivity() {
 
     private val samples =
         arrayOf(
-            SampleShader()
+            SampleShader(),
+            SampleTextureArray()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
