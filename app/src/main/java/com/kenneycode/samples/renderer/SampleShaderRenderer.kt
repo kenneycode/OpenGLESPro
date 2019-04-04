@@ -68,7 +68,7 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
     // The location of a_position、a_textureCoordinate and s_texture, corresponding with which in shader
     private val LOCATION_ATTRBUTE_POSITION = 0
     private val LOCATION_ATTRBUTE_TEXTURE_COORDINATE = 1
-    private val LOCATION_UNIFORM_POSITION = 0
+    private val LOCATION_UNIFORM_TEXTURE = 0
 
     override fun onDrawFrame(gl: GL10?) {
 
@@ -191,9 +191,9 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
             bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
                 bitmap.recycle()
         
-        // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_POSITION，而无需像OpenGL 2.0那样需要先获取参数的location
-        // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_POSITION, while in OpenGL 2.0 we have to query the location of the parameter
-        GLES30.glUniform1i(LOCATION_UNIFORM_POSITION, 0)
+        // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_TEXTURE，而无需像OpenGL 2.0那样需要先获取参数的location
+        // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_TEXTURE, while in OpenGL 2.0 we have to query the location of the parameter
+        GLES30.glUniform1i(LOCATION_UNIFORM_TEXTURE, 0)
         
     }
 
