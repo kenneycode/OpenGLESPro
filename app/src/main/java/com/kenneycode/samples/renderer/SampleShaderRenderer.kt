@@ -96,8 +96,7 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         // 调用draw方法用TRIANGLES的方式执行渲染，顶点数量为3个
         // Call the draw method with GL_TRIANGLES to render 3 vertices
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexData.size / VERTEX_COMPONENT_COUNT)
-        Util.checkGLError()
-
+        
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
@@ -177,34 +176,25 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
         // 将图片解码并加载到纹理中
         // Decode image and load it into texture
-        Util.checkGLError()
-        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-        Util.checkGLError()
-        val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-        Util.checkGLError()
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTextue)
-        Util.checkGLError()
-        val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-        Util.checkGLError()
-        bitmap.copyPixelsToBuffer(b)
+                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTextue)
+                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+                bitmap.copyPixelsToBuffer(b)
         b.position(0)
-        Util.checkGLError()
-        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
+                GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexImage2D(
             GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
             bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-        Util.checkGLError()
-        bitmap.recycle()
-        Util.checkGLError()
-
+                bitmap.recycle()
+        
         // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_POSITION，而无需像OpenGL 2.0那样需要先获取参数的location
         // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_POSITION, while in OpenGL 2.0 we have to query the location of the parameter
         GLES30.glUniform1i(LOCATION_UNIFORM_POSITION, 0)
-        Util.checkGLError()
-
+        
     }
 
 }
