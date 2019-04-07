@@ -20,7 +20,8 @@ class SimpleActivity : AppCompatActivity() {
     private val samples =
         arrayOf(
             SampleShader(),
-            SampleTextureArray()
+            SampleTextureArray(),
+            SampleBinaryProgram()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {
