@@ -36,9 +36,10 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
     private val fragmentShaderCode =
             "#version 300 es\n" +
             "precision mediump float;\n" +
+            "precision mediump sampler2D;\n" +
             "layout(location = 0) out vec4 fragColor;\n" +
+            "layout(location = 0) uniform sampler2D s_texture;\n" +
             "in vec2 v_textureCoordinate;\n" +
-            "uniform sampler2D s_texture;\n" +
             "void main() {\n" +
             "    fragColor = texture(s_texture, v_textureCoordinate);\n" +
             "}"
