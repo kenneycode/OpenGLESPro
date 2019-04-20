@@ -1,4 +1,4 @@
-# OpenGL3FeatureSamplesForAndroid
+# OpenGLES3FeatureSamplesForAndroid
 
 
 这是一个`Android`上的`OpenGL ES 3`新特性的学习工程，我会不断地补充sample，并在关键代码处附上中英文注释。
