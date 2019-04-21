@@ -22,7 +22,8 @@ class SimpleActivity : AppCompatActivity() {
             SampleShader(),
             SampleTextureArray(),
             SampleBinaryProgram(),
-            SampleFenceSync()
+            SampleFenceSync(),
+            SampleMultiRenderTarget()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

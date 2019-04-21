@@ -4,4 +4,5 @@
     <string name="sample_1">纹理数组(Texture Array)</string>
     <string name="sample_2">二进制GL程序(Binary GL Program)</string>
     <string name="sample_3">栅栏(Fence)</string>
+    <string name="sample_4">多重目标渲染(Multiple Render Target)</string>
 </resources>
