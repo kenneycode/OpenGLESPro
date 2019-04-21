@@ -16,7 +16,7 @@ I will publish some Android OpenGL ES 3 feature learning articles on my **juejin
 
 目前工程中有3个例子:
 
-Now, this project contains 3 samples.
+Now, this project contains 5 samples.
 
 
 
@@ -28,7 +28,7 @@ Now, this project contains 3 samples.
 
    [https://juejin.im/post/5ca9863151882543f400b745](https://juejin.im/post/5ca9863151882543f400b745)
 
-
+   
 
 - **SampleTextureArray**
 
@@ -36,11 +36,29 @@ Now, this project contains 3 samples.
 
   A sample demonstrates the usage of texture array. In the fragment shader, we use sampler2DArray to hold an array of texture.
 
-
-
+  
 
 - **SampleBinaryProgram**
 
   一个使用二进制GL program的例子，演示将link好的GL Program以文件的方式保存，以及读取GL program文件并加载
 
   A sample demonstrates the usage of binary GL program. We can save the linked GL program to file and load a binary GL program from file.
+
+  
+
+- **SampleFenceSync**
+
+  一个使用栅栏做GL命令同步的例子
+
+  a sample of using fence to synchronize the GL commands.
+
+  
+
+- **SampleMultiRenderTarget**
+
+  一个多渲染目标的例子，可以一次渲染到多个纹理上
+  
+  This is a sample of multiple render targets, with which we can render to multiple textures at a time.
+
+
+
