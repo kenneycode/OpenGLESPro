@@ -1,20 +1,19 @@
-# OpenGLES3FeatureSamplesForAndroid
+# **OpenGLESPro**
 
 
-这是一个`Android`上的`OpenGL ES 3`新特性的学习工程，我会不断地补充sample，并在关键代码处附上中英文注释。
+这是一个`Android`上的`OpenGL ES` 高级进阶学习项目，我会不断地补充sample，并在关键代码处附上中英文注释。
 
-This is a `OpenGL ES 3` learning project for Android, and I will continue to code and commit samples and write chinese and english commets for some import code.
-
-
-
-在我的**掘金**上，我会发布相关的**OpenGL ES 3 新特性介绍及编程实践**教学文章，包括每个例子的对应的讲解文章，以及一些其它知识，欢迎关注：https://juejin.im/user/5afabe81f265da0b7b361036/posts
-
-I will publish some Android OpenGL ES 3 feature learning articles on my **juejin**, including the articles related to every samples in this project, and other knowledge.  Welcome! Link: https://juejin.im/user/5afabe81f265da0b7b361036/posts
+This is a `OpenGL ES` advanced learning project for Android, and I will continue to code and commit samples and write chinese and english commets for some import code.
 
 
 
+在我的**掘金**上，我会发布相关的**OpenGL ES 高级进阶**教学文章，包括每个例子的对应的讲解文章，以及一些其它知识，欢迎关注：https://juejin.im/user/5afabe81f265da0b7b361036/posts
 
-目前工程中有3个例子:
+I will publish some Android OpenGL ES advanced learning articles on my **juejin**, including the articles related to every samples in this project, and other knowledge.  Welcome! Link: https://juejin.im/user/5afabe81f265da0b7b361036/posts
+
+
+
+目前工程中有5个例子:
 
 Now, this project contains 5 samples.
 
