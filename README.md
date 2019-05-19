@@ -35,6 +35,8 @@ Now, this project contains 5 samples.
 
   A sample demonstrates the usage of texture array. In the fragment shader, we use sampler2DArray to hold an array of texture.
 
+  https://juejin.im/post/5ce0aca6e51d4510a37bab4b
+
   
 
 - **SampleBinaryProgram**
