@@ -42,10 +42,10 @@ class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
                     "layout(location = 0) out vec4 fragColor;\n" +
                     "in vec3 v_textureCoordinate;\n" +
                     "// 注意这里用的是sampler2DArray而不是sampler2D\n" +
-                    "// Note that the type of s_texture is sampler2DArray instead of sampler2D\n" +
-                    "layout(location = 0) uniform sampler2DArray s_texture;\n" +
+                    "// Note that the type of u_texture is sampler2DArray instead of sampler2D\n" +
+                    "layout(location = 0) uniform sampler2DArray u_texture;\n" +
                     "void main() {\n" +
-                    "    fragColor = texture(s_texture, v_textureCoordinate);\n" +
+                    "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
                     "}"
 
     // GLSurfaceView的宽高
@@ -62,8 +62,20 @@ class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
 
     // 纹理坐标
     // The texture coordinate
-    private val textureCoordinateData = floatArrayOf(0f, 1f, 0f, 0f, 0f, 0f, 1f, 0f, 0f, 0f, 1f, 0f, 1f, 0f, 0f, 1f, 1f, 0f,
-        0f, 1f, 1f, 0f, 0f, 1f, 1f, 0f, 1f, 0f, 1f, 1f, 1f, 0f, 1f, 1f, 1f, 1f)
+    private val textureCoordinateData = floatArrayOf(
+                                            0f, 1f, 0f,
+                                            0f, 0f, 0f,
+                                            1f, 0f, 0f,
+                                            0f, 1f, 0f,
+                                            1f, 0f, 0f,
+                                            1f, 1f, 0f,
+                                            0f, 1f, 1f,
+                                            0f, 0f, 1f,
+                                            1f, 0f, 1f,
+                                            0f, 1f, 1f,
+                                            1f, 0f, 1f,
+                                            1f, 1f, 1f
+                                        )
     private val TEXTURE_COORDINATE_COMPONENT_COUNT = 3
     private lateinit var textureCoordinateDataBuffer : FloatBuffer
 
@@ -71,8 +83,8 @@ class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
     // The texture of the image to be rendered
     private var imageTexture = 0
 
-    // a_position、a_textureCoordinate和s_texture的位置，与shader中写的对应
-    // The location of a_position、a_textureCoordinate and s_texture, corresponding with which in shader
+    // a_position、a_textureCoordinate和u_texture的位置，与shader中写的对应
+    // The location of a_position、a_textureCoordinate and u_texture, corresponding with which in shader
     private val LOCATION_ATTRIBUTE_POSITION = 0
     private val LOCATION_ATTRIBUTE_TEXTURE_COORDINATE = 1
     private val LOCATION_UNIFORM_TEXTURE = 0
@@ -174,7 +186,7 @@ class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
         // Specify the data of a_textureCoordinate
         GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
 
-                // 创建图片纹理数组
+        // 创建图片纹理数组
         // Create texture for image
         val textures = IntArray(1)
         GLES30.glGenTextures(textures.size, textures, 0)
@@ -185,7 +197,7 @@ class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D_ARRAY, textures[0])
         GLES30.glTexStorage3D(GLES30.GL_TEXTURE_2D_ARRAY, 1, GLES30.GL_RGBA8, 390, 270, 2)
 
-                // 通过glTexSubImage3D指定每层的纹理
+        // 通过glTexSubImage3D指定每层的纹理
         // Specify the texture of each layer via glTexSubImage3D
         for (i in 0 until 2) {
             val bitmap = Util.decodeBitmapFromAssets("image_$i.jpg")

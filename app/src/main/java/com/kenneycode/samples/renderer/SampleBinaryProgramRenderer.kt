@@ -40,9 +40,9 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
                 "precision mediump float;\n" +
                 "layout(location = 0) out vec4 fragColor;\n" +
                 "in vec2 v_textureCoordinate;\n" +
-                "uniform sampler2D s_texture;\n" +
+                "uniform sampler2D u_texture;\n" +
                 "void main() {\n" +
-                "    fragColor = texture(s_texture, v_textureCoordinate);\n" +
+                "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
                 "}"
 
     // GLSurfaceView的宽高
@@ -66,8 +66,8 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
     // The texture of the image to be rendered
     private var imageTexture = 0
 
-    // a_position、a_textureCoordinate和s_texture的位置，与shader中写的对应
-    // The location of a_position、a_textureCoordinate and s_texture, corresponding with which in shader
+    // a_position、a_textureCoordinate和u_texture的位置，与shader中写的对应
+    // The location of a_position、a_textureCoordinate and u_texture, corresponding with which in shader
     private val LOCATION_ATTRIBUTE_POSITION = 0
     private val LOCATION_ATTRIBUTE_TEXTURE_COORDINATE = 1
     private val LOCATION_UNIFORM_TEXTURE = 0

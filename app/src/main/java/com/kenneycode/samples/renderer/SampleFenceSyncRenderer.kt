@@ -43,14 +43,14 @@ class SampleFenceSyncRenderer(val imageView : ImageView) : GLSurfaceView.Rendere
                 "precision mediump float;\n" +
                 "layout(location = 0) out vec4 fragColor;\n" +
                 "in vec2 v_textureCoordinate;\n" +
-                "uniform sampler2D s_texture;\n" +
+                "uniform sampler2D u_texture;\n" +
                 "void main() {\n" +
                 "    float offset = 0.01;\n" +
-                "    vec4 colorCenter = texture(s_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y));\n" +
-                "    vec4 colorLeft = texture(s_texture, vec2(v_textureCoordinate.x - offset, v_textureCoordinate.y));\n" +
-                "    vec4 colorTop = texture(s_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y + offset));\n" +
-                "    vec4 colorRight = texture(s_texture, vec2(v_textureCoordinate.x + offset, v_textureCoordinate.y));\n" +
-                "    vec4 colorBottom = texture(s_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y - offset));\n" +
+                "    vec4 colorCenter = texture(u_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y));\n" +
+                "    vec4 colorLeft = texture(u_texture, vec2(v_textureCoordinate.x - offset, v_textureCoordinate.y));\n" +
+                "    vec4 colorTop = texture(u_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y + offset));\n" +
+                "    vec4 colorRight = texture(u_texture, vec2(v_textureCoordinate.x + offset, v_textureCoordinate.y));\n" +
+                "    vec4 colorBottom = texture(u_texture, vec2(v_textureCoordinate.x, v_textureCoordinate.y - offset));\n" +
                 "    fragColor = (colorCenter + colorLeft + colorTop + colorRight + colorBottom) / 5.0;\n" +
                 "}"
     // 三角形顶点数据

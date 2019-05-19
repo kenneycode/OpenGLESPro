@@ -43,10 +43,10 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
                     "layout(location = 0) out vec4 fragColor0;\n" +
                     "layout(location = 1) out vec4 fragColor1;\n" +
                     "layout(location = 2) out vec4 fragColor2;\n" +
-                    "uniform sampler2D s_texture;\n" +
+                    "uniform sampler2D u_texture;\n" +
                     "in vec2 v_textureCoordinate;\n" +
                     "void main() {\n" +
-                    "    vec4 color = texture(s_texture, v_textureCoordinate);\n" +
+                    "    vec4 color = texture(u_texture, v_textureCoordinate);\n" +
                     "    fragColor0 = vec4(1.0, color.g, color.b, color.a);\n" +
                     "    fragColor1 = vec4(color.r, 1.0, color.b, color.a);\n" +
                     "    fragColor2 = vec4(color.r, color.g, 1.0, color.a);\n" +
@@ -57,9 +57,9 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
                     "precision mediump float;\n" +
                     "layout(location = 0) out vec4 fragColor;\n" +
                     "in vec2 v_textureCoordinate;\n" +
-                    "uniform sampler2D s_texture;\n" +
+                    "uniform sampler2D u_texture;\n" +
                     "void main() {\n" +
-                    "    fragColor = texture(s_texture, v_textureCoordinate);\n" +
+                    "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
                     "}"
 
     private var glSurfaceViewWidth = 0
@@ -91,7 +91,7 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
         GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
-        GLES30.glUniform1i(GLES30.glGetUniformLocation(programIdMTR, "s_texture"), 0)
+        GLES30.glUniform1i(GLES30.glGetUniformLocation(programIdMTR, "u_texture"), 0)
         GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, frameBufferMTR)
 
         // 设置清屏颜色
@@ -138,7 +138,7 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
             GLES30.glVertexAttribPointer(LOCATION_ATTRBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
             GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, targets[i])
-            GLES30.glUniform1i(GLES30.glGetUniformLocation(programIdRTS, "s_texture"), 0)
+            GLES30.glUniform1i(GLES30.glGetUniformLocation(programIdRTS, "u_texture"), 0)
                         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, offsetVertexData.size / VERTEX_COMPONENT_COUNT)
         }
     }
@@ -251,7 +251,7 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
         GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width, bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
                 bitmap.recycle()
                 GLES30.glUseProgram(programIdMTR)
-                val locationUniformTexture = GLES30.glGetUniformLocation(programIdMTR, "s_texture")
+                val locationUniformTexture = GLES30.glGetUniformLocation(programIdMTR, "u_texture")
         GLES30.glUniform1i(locationUniformTexture, 0)
         
         val targetCount = 3
