@@ -149,7 +149,7 @@ class SampleVBOAndIBORenderer : GLSurfaceView.Renderer {
         vbo = buffers[0]
         ibo = buffers[1]
 
-        // 将顶点数据载入VBO
+        // 将顶点和纹理数据载入VBO
         // Load vertex data into VBO
         val vertexDataBuffer = ByteBuffer.allocateDirect(vertexData.size * java.lang.Float.SIZE / 8)
                                             .order(ByteOrder.nativeOrder())
@@ -163,7 +163,7 @@ class SampleVBOAndIBORenderer : GLSurfaceView.Renderer {
         GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_POSITION, 2, GLES30.GL_FLOAT, false, 16, 0)
         GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, 2, GLES30.GL_FLOAT, false, 16, 8)
 
-        // 将顶点数据载入IBO
+        // 将顶点索引数据载入IBO
         // Load index data into IBO
         val indexDataBuffer = ByteBuffer.allocateDirect(indexData.size * Integer.SIZE / 8)
                                 .order(ByteOrder.nativeOrder())
