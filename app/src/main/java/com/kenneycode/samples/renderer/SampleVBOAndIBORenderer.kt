@@ -54,7 +54,7 @@ class SampleVBOAndIBORenderer : GLSurfaceView.Renderer {
     // 三角形顶点、纹理数据
     // The vertex data and texture coordinate data of triangles
     private val vertexData = floatArrayOf(
-                                -1f, -1f,   0f, 1f,
+                                -1f, -1f,   0f, 1f,     // x, y, u, v
                                 -1f, 1f,    0f, 0f,
                                 1f, 1f,     1f, 0f,
                                 1f, -1f,    1f, 1f
@@ -99,8 +99,8 @@ class SampleVBOAndIBORenderer : GLSurfaceView.Renderer {
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
         GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
 
-        // 调用draw方法用TRIANGLES的方式执行渲染，顶点数量为3个
-        // Call the draw method with GL_TRIANGLES to render 3 vertices
+        // 调用glDrawElements方法用TRIANGLES的方式执行渲染
+        // Call the glDrawElements method with GL_TRIANGLES
         GLES30.glDrawElements(GLES30.GL_TRIANGLES, indexData.size, GLES30.GL_UNSIGNED_INT, 0)
 
     }
