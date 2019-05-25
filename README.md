@@ -69,4 +69,6 @@ Now, this project contains 5 samples.
 
   This sample demonstrates the usage of VBO(Vertex Buffer Object) and IBO(Index Buffer Object)。
 
+  https://juejin.im/post/5ce55ae95188253114078ad7
+
 
