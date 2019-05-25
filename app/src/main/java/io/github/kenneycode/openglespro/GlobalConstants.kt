@@ -1,4 +1,4 @@
-package com.kenneycode
+package io.github.kenneycode.openglespro
 
 /**
  *

@@ -1,9 +1,9 @@
-package com.kenneycode.samples.renderer
+package io.github.kenneycode.openglespro.samples.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
 import android.util.Log
-import com.kenneycode.Util
+import io.github.kenneycode.openglespro.Util
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer

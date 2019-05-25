@@ -1,13 +1,11 @@
-package com.kenneycode.samples.renderer
+package io.github.kenneycode.openglespro.samples.renderer
 
 import android.graphics.Bitmap
 import android.opengl.*
 import android.os.Handler
 import android.os.HandlerThread
-import android.util.Log
 import android.widget.ImageView
-import com.kenneycode.Util
-import com.kenneycode.samples.fragment.SampleFenceSync
+import io.github.kenneycode.openglespro.Util
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer

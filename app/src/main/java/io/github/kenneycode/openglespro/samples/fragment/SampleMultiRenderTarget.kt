@@ -1,4 +1,4 @@
-package com.kenneycode.samples.fragment
+package io.github.kenneycode.openglespro.samples.fragment
 
 import android.opengl.GLSurfaceView
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kenneycode.R
-import com.kenneycode.samples.renderer.SampleMultiRenderTargetRenderer
+import io.github.kenneycode.openglespro.R
+import io.github.kenneycode.openglespro.samples.renderer.SampleMultiRenderTargetRenderer
 
 /**
  *

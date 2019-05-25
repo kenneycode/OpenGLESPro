@@ -1,4 +1,4 @@
-package com.kenneycode
+package io.github.kenneycode.openglespro
 
 import android.content.Context
 import android.graphics.Bitmap

@@ -1,8 +1,8 @@
-package com.kenneycode.samples.renderer
+package io.github.kenneycode.openglespro.samples.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
-import com.kenneycode.Util
+import io.github.kenneycode.openglespro.Util
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
@@ -15,34 +15,36 @@ import javax.microedition.khronos.opengles.GL10
  *
  *      http://www.github.com/kenneycode
  *
- *      这是一个演示OpenGL 3.0 shader的例子，主要演示其中的location字段的作用
- *      This sample demonstrates the usage of location in OpenGL 3.0 shader
+ *      这是一个纹理数组的例子，通用使用sampler2DArray将一组纹理传给fragment shader
+ *      This sample demonstrates the usage of texture array. In the fragment shader, we use sampler2DArray to hold an array of texture.
  *
  **/
 
-class SampleShaderRenderer : GLSurfaceView.Renderer {
+class SampleTextureArrayRenderer : GLSurfaceView.Renderer {
 
     private val vertexShaderCode =
-            "#version 300 es\n" +
-            "precision mediump float;\n" +
-            "layout(location = 0) in vec4 a_position;\n" +
-            "layout(location = 1) in vec2 a_textureCoordinate;\n" +
-            "out vec2 v_textureCoordinate;\n" +
-            "void main() {\n" +
-            "    v_textureCoordinate = a_textureCoordinate;\n" +
-            "    gl_Position = a_position;\n" +
-            "}"
+                    "#version 300 es\n" +
+                    "precision mediump float;\n" +
+                    "layout(location = 0) in vec4 a_Position;\n" +
+                    "layout(location = 1) in vec3 a_textureCoordinate;\n" +
+                    "out vec3 v_textureCoordinate;\n" +
+                    "void main() {\n" +
+                    "    v_textureCoordinate = a_textureCoordinate;\n" +
+                    "    gl_Position = a_Position;\n" +
+                    "}"
 
     private val fragmentShaderCode =
-            "#version 300 es\n" +
-            "precision mediump float;\n" +
-            "precision mediump sampler2D;\n" +
-            "layout(location = 0) out vec4 fragColor;\n" +
-            "layout(location = 0) uniform sampler2D u_texture;\n" +
-            "in vec2 v_textureCoordinate;\n" +
-            "void main() {\n" +
-            "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
-            "}"
+                    "#version 300 es\n" +
+                    "precision mediump float;\n" +
+                    "precision mediump sampler2DArray;\n" +
+                    "layout(location = 0) out vec4 fragColor;\n" +
+                    "in vec3 v_textureCoordinate;\n" +
+                    "// 注意这里用的是sampler2DArray而不是sampler2D\n" +
+                    "// Note that the type of u_texture is sampler2DArray instead of sampler2D\n" +
+                    "layout(location = 0) uniform sampler2DArray u_texture;\n" +
+                    "void main() {\n" +
+                    "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
+                    "}"
 
     // GLSurfaceView的宽高
     // The width and height of GLSurfaceView
@@ -51,14 +53,28 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
     // 三角形顶点数据
     // The vertex data of a triangle
-    private val vertexData = floatArrayOf(-1f, -1f, -1f, 1f, 1f, 1f, -1f, -1f, 1f, 1f, 1f, -1f)
+    private val vertexData = floatArrayOf(-1f, -1f, -1f, 0f, 0f, 0f, -1f, -1f, 0f, 0f, 0f, -1f,
+        0f, 0f, 0f, 1f, 1f, 1f, 0f, 0f, 1f, 1f, 1f, 0f)
     private val VERTEX_COMPONENT_COUNT = 2
     private lateinit var vertexDataBuffer : FloatBuffer
 
     // 纹理坐标
     // The texture coordinate
-    private val textureCoordinateData = floatArrayOf(0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 1f, 0f, 1f, 1f)
-    private val TEXTURE_COORDINATE_COMPONENT_COUNT = 2
+    private val textureCoordinateData = floatArrayOf(
+                                            0f, 1f, 0f,
+                                            0f, 0f, 0f,
+                                            1f, 0f, 0f,
+                                            0f, 1f, 0f,
+                                            1f, 0f, 0f,
+                                            1f, 1f, 0f,
+                                            0f, 1f, 1f,
+                                            0f, 0f, 1f,
+                                            1f, 0f, 1f,
+                                            0f, 1f, 1f,
+                                            1f, 0f, 1f,
+                                            1f, 1f, 1f
+                                        )
+    private val TEXTURE_COORDINATE_COMPONENT_COUNT = 3
     private lateinit var textureCoordinateDataBuffer : FloatBuffer
 
     // 要渲染的图片纹理
@@ -97,16 +113,14 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         // 调用draw方法用TRIANGLES的方式执行渲染，顶点数量为3个
         // Call the draw method with GL_TRIANGLES to render 3 vertices
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexData.size / VERTEX_COMPONENT_COUNT)
-        
+
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
-
         // 记录GLSurfaceView的宽高
         // Record the width and height of the GLSurfaceView
         glSurfaceViewWidth = width
         glSurfaceViewHeight = height
-
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
@@ -129,6 +143,7 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         GLES30.glAttachShader(programId, vertexShader)
         GLES30.glAttachShader(programId, fragmentShader)
 
+        val info1 = GLES30.glGetShaderInfoLog(fragmentShader)
         // 链接GL程序
         // Link the GL program
         GLES30.glLinkProgram(programId)
@@ -169,33 +184,32 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
         // Specify the data of a_textureCoordinate
         GLES30.glVertexAttribPointer(LOCATION_ATTRIBUTE_TEXTURE_COORDINATE, TEXTURE_COORDINATE_COMPONENT_COUNT, GLES30.GL_FLOAT, false,0, textureCoordinateDataBuffer)
 
-        // 创建图片纹理
+        // 创建图片纹理数组
         // Create texture for image
         val textures = IntArray(1)
         GLES30.glGenTextures(textures.size, textures, 0)
         imageTexture = textures[0]
 
-        // 将图片解码并加载到纹理中
-        // Decode image and load it into texture
-                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
-                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-                bitmap.copyPixelsToBuffer(b)
-        b.position(0)
-                GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
-        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
-        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
-        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
-        GLES30.glTexImage2D(
-            GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
-            bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-                bitmap.recycle()
-        
+        // 注意这里是GL_TEXTURE_2D_ARRAY
+        // Note that the type is GL_TEXTURE_2D_ARRAY
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D_ARRAY, textures[0])
+        GLES30.glTexStorage3D(GLES30.GL_TEXTURE_2D_ARRAY, 1, GLES30.GL_RGBA8, 390, 270, 2)
+
+        // 通过glTexSubImage3D指定每层的纹理
+        // Specify the texture of each layer via glTexSubImage3D
+        for (i in 0 until 2) {
+            val bitmap = Util.decodeBitmapFromAssets("image_$i.jpg")
+            val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+            bitmap.copyPixelsToBuffer(b)
+            b.position(0)
+            GLES30.glTexSubImage3D(GLES30.GL_TEXTURE_2D_ARRAY, 0, 0, 0, i, bitmap.width, bitmap.height, 1, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
+            bitmap.recycle()
+        }
+
         // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_TEXTURE，而无需像OpenGL 2.0那样需要先获取参数的location
         // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_TEXTURE, while in OpenGL 2.0 we have to query the location of the parameter
         GLES30.glUniform1i(LOCATION_UNIFORM_TEXTURE, 0)
-        
+
     }
 
 }

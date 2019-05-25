@@ -1,13 +1,11 @@
-package com.kenneycode.samples.renderer
+package io.github.kenneycode.openglespro.samples.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
-import com.kenneycode.Util
-import java.io.File
+import io.github.kenneycode.openglespro.Util
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.FloatBuffer
-import java.nio.IntBuffer
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 
@@ -17,33 +15,34 @@ import javax.microedition.khronos.opengles.GL10
  *
  *      http://www.github.com/kenneycode
  *
- *      这是一个使用二进制GL program的例子，演示将link好的GL Program以文件的方式保存，以及读取GL program文件并加载
- *      This sample demonstrates the usage of binary GL program. We can save the linked GL program to file and load a binary GL program from file.
+ *      这是一个演示OpenGL 3.0 shader的例子，主要演示其中的location字段的作用
+ *      This sample demonstrates the usage of location in OpenGL 3.0 shader
  *
  **/
 
-class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
+class SampleShaderRenderer : GLSurfaceView.Renderer {
 
     private val vertexShaderCode =
-        "#version 300 es\n" +
-                "precision mediump float;\n" +
-                "layout(location = 0) in vec4 a_position;\n" +
-                "layout(location = 1) in vec2 a_textureCoordinate;\n" +
-                "out vec2 v_textureCoordinate;\n" +
-                "void main() {\n" +
-                "    v_textureCoordinate = a_textureCoordinate;\n" +
-                "    gl_Position = a_position;\n" +
-                "}"
+            "#version 300 es\n" +
+            "precision mediump float;\n" +
+            "layout(location = 0) in vec4 a_position;\n" +
+            "layout(location = 1) in vec2 a_textureCoordinate;\n" +
+            "out vec2 v_textureCoordinate;\n" +
+            "void main() {\n" +
+            "    v_textureCoordinate = a_textureCoordinate;\n" +
+            "    gl_Position = a_position;\n" +
+            "}"
 
     private val fragmentShaderCode =
-        "#version 300 es\n" +
-                "precision mediump float;\n" +
-                "layout(location = 0) out vec4 fragColor;\n" +
-                "in vec2 v_textureCoordinate;\n" +
-                "uniform sampler2D u_texture;\n" +
-                "void main() {\n" +
-                "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
-                "}"
+            "#version 300 es\n" +
+            "precision mediump float;\n" +
+            "precision mediump sampler2D;\n" +
+            "layout(location = 0) out vec4 fragColor;\n" +
+            "layout(location = 0) uniform sampler2D u_texture;\n" +
+            "in vec2 v_textureCoordinate;\n" +
+            "void main() {\n" +
+            "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
+            "}"
 
     // GLSurfaceView的宽高
     // The width and height of GLSurfaceView
@@ -98,7 +97,7 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
         // 调用draw方法用TRIANGLES的方式执行渲染，顶点数量为3个
         // Call the draw method with GL_TRIANGLES to render 3 vertices
         GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, vertexData.size / VERTEX_COMPONENT_COUNT)
-
+        
     }
 
     override fun onSurfaceChanged(gl: GL10?, width: Int, height: Int) {
@@ -114,7 +113,7 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
 
         // 创建GL程序
         // Create GL program
-        var programId = GLES30.glCreateProgram()
+        val programId = GLES30.glCreateProgram()
 
         // 加载、编译vertex shader和fragment shader
         // Load and compile vertex shader and fragment shader
@@ -133,21 +132,6 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
         // 链接GL程序
         // Link the GL program
         GLES30.glLinkProgram(programId)
-
-        // 将链接好的二进制GL program保存到文件中
-        // Save the linked binary GL program to file
-        val binaryBuffer = ByteBuffer.allocate(65536)
-        val lengthBuffer = IntBuffer.allocate(1)
-        val formatBuffer = IntBuffer.allocate(1)
-        GLES30.glGetProgramBinary(programId, binaryBuffer.capacity(), lengthBuffer, formatBuffer, binaryBuffer)
-        saveGLProgramBinary(binaryBuffer, lengthBuffer[0], formatBuffer[0])
-        GLES30.glDeleteProgram(programId)
-
-        // 从文件中读取进二进制GL program并加载
-        // Read and load the binary GL program from file
-        val glProgramBinary = getGLProgramBinary()
-        programId = GLES30.glCreateProgram()
-        GLES30.glProgramBinary(programId, glProgramBinary.format, glProgramBinary.binaryBuffer, glProgramBinary.length)
 
         // 应用GL程序
         // Use the GL program
@@ -193,45 +177,25 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
 
         // 将图片解码并加载到纹理中
         // Decode image and load it into texture
-        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-        val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
-        val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-        bitmap.copyPixelsToBuffer(b)
+                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
+                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+                bitmap.copyPixelsToBuffer(b)
         b.position(0)
-        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
+                GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexImage2D(
             GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
             bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-        bitmap.recycle()
-
+                bitmap.recycle()
+        
         // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_TEXTURE，而无需像OpenGL 2.0那样需要先获取参数的location
         // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_TEXTURE, while in OpenGL 2.0 we have to query the location of the parameter
         GLES30.glUniform1i(LOCATION_UNIFORM_TEXTURE, 0)
-
+        
     }
-
-    private fun saveGLProgramBinary(binaryBuffer : ByteBuffer, length : Int, format : Int) {
-        val fileLengthAndFormat = File("/sdcard/length_and_format.txt")
-        fileLengthAndFormat.writeText(length.toString())
-        fileLengthAndFormat.appendText("\n")
-        fileLengthAndFormat.appendText(format.toString())
-        val fileProgramBinary = File("/sdcard/program_binary.bin")
-        val bytes = ByteArray(length)
-        binaryBuffer.get(bytes)
-        fileProgramBinary.writeBytes(bytes)
-    }
-
-    private fun getGLProgramBinary() : GLProgramBinary {
-        val fileLengthAndFormat = File("/sdcard/length_and_format.txt")
-        val lines = fileLengthAndFormat.readLines()
-        val fileProgramBinary = File("/sdcard/program_binary.bin")
-        return GLProgramBinary(ByteBuffer.wrap(fileProgramBinary.readBytes()), lines[0].toInt(), lines[1].toInt())
-    }
-
-    class GLProgramBinary(val binaryBuffer : ByteBuffer, val length : Int, val format : Int)
 
 }

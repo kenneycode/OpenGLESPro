@@ -1,4 +1,4 @@
-package com.kenneycode.samples.fragment
+package io.github.kenneycode.openglespro.samples.fragment
 
 import android.opengl.GLSurfaceView
 import android.os.Bundle
@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.kenneycode.R
-import com.kenneycode.samples.renderer.SampleVBOAndIBORenderer
+import io.github.kenneycode.openglespro.R
+import io.github.kenneycode.openglespro.samples.renderer.SampleTextureArrayRenderer
 
 /**
  *
@@ -15,12 +15,12 @@ import com.kenneycode.samples.renderer.SampleVBOAndIBORenderer
  *
  *      http://www.github.com/kenneycode
  *
- *      这是一个使用VBO(Vertex Buffer Object)和IBO(Index Buffer Object)的例子
- *      This sample demonstrates the usage of VBO(Vertex Buffer Object) and IBO(Index Buffer Object)
+ *      这是一个纹理数组的例子，通用使用sampler2DArray将一组纹理传给fragment shader
+ *      This sample demonstrates the usage of texture array. In the fragment shader, we use sampler2DArray to hold an array of texture.
  *
  **/
 
-class SampleVBOAndIBO : Fragment() {
+class SampleTextureArray : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val rootView = inflater.inflate(R.layout.fragment_common_sample, container,  false)
         val glSurfaceView = rootView.findViewById<GLSurfaceView>(R.id.glsurfaceview)
@@ -32,7 +32,7 @@ class SampleVBOAndIBO : Fragment() {
         glSurfaceView.setEGLContextClientVersion(3)
         // 设置对应sample的渲染器
         // Set the corresponding sample renderer
-        glSurfaceView.setRenderer(SampleVBOAndIBORenderer())
+        glSurfaceView.setRenderer(SampleTextureArrayRenderer())
         return rootView
     }
 }

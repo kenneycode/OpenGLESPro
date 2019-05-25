@@ -1,14 +1,10 @@
-package com.kenneycode.samples.renderer
+package io.github.kenneycode.openglespro.samples.renderer
 
 import android.opengl.GLES30
 import android.opengl.GLSurfaceView
-import android.opengl.GLUtils
-import com.kenneycode.Util
-import java.io.File
+import io.github.kenneycode.openglespro.Util
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
-import java.nio.FloatBuffer
-import java.nio.IntBuffer
 import javax.microedition.khronos.egl.EGLConfig
 import javax.microedition.khronos.opengles.GL10
 

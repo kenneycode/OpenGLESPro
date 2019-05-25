@@ -1,8 +1,8 @@
-package com.kenneycode
+package io.github.kenneycode.openglespro
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
-import com.kenneycode.samples.fragment.*
+import io.github.kenneycode.openglespro.samples.fragment.*
 
 /**
  *
@@ -19,12 +19,12 @@ class SimpleActivity : AppCompatActivity() {
 
     private val samples =
         arrayOf(
-            SampleShader(),
-            SampleTextureArray(),
-            SampleBinaryProgram(),
-            SampleFenceSync(),
-            SampleMultiRenderTarget(),
-            SampleVBOAndIBO()
+                SampleShader(),
+                SampleTextureArray(),
+                SampleBinaryProgram(),
+                SampleFenceSync(),
+                SampleMultiRenderTarget(),
+                SampleVBOAndIBO()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

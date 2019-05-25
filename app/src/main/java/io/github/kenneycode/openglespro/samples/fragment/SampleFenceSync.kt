@@ -1,15 +1,13 @@
-package com.kenneycode.samples.fragment
+package io.github.kenneycode.openglespro.samples.fragment
 
-import android.opengl.EGL14
 import android.opengl.GLSurfaceView
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import com.kenneycode.R
-import com.kenneycode.samples.renderer.SampleFenceSyncRenderer
+import io.github.kenneycode.openglespro.R
+import io.github.kenneycode.openglespro.samples.renderer.SampleFenceSyncRenderer
 
 /**
  *
