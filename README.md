@@ -13,9 +13,9 @@ I will publish some Android OpenGL ES advanced learning articles on my **juejin*
 
 
 
-目前工程中有6个例子:
+目前工程中有以下例子:
 
-Now, this project contains 5 samples.
+Now, this project contains the following samples.
 
 
 
@@ -59,7 +59,7 @@ Now, this project contains 5 samples.
 
   一个多渲染目标的例子，可以一次渲染到多个纹理上
 
-  This is a sample of multiple render targets, with which we can render to multiple textures at a time.
+  This is a sample of multiple render targets, with which we can render to multiple textures at a time
 
   
 
@@ -67,8 +67,17 @@ Now, this project contains 5 samples.
 
   VBO(Vertex Buffer Object)和IBO(Index Buffer Object)的使用方法
 
-  This sample demonstrates the usage of VBO(Vertex Buffer Object) and IBO(Index Buffer Object)。
+  This sample demonstrates the usage of VBO(Vertex Buffer Object) and IBO(Index Buffer Object)
 
   https://juejin.im/post/5ce55ae95188253114078ad7
 
+
+
+- **SampleEGL**
+
+  EGL的使用方法
+
+  This sample demonstrates the usage of EGL
+
+  <https://juejin.im/post/5cf3685b518825558314fc87>
 
