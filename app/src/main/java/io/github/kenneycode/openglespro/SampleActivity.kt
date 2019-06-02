@@ -24,7 +24,8 @@ class SimpleActivity : AppCompatActivity() {
                 SampleBinaryProgram(),
                 SampleFenceSync(),
                 SampleMultiRenderTarget(),
-                SampleVBOAndIBO()
+                SampleVBOAndIBO(),
+                SampleEGL()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

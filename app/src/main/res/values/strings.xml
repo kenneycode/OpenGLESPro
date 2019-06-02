@@ -1,9 +1,10 @@
 <resources>
-    <string name="app_name">OpenGL3FeatureSamplesForAndroid</string>
+    <string name="app_name">OpenGLESPro</string>
     <string name="sample_0">着色器(Shader)</string>
     <string name="sample_1">纹理数组(Texture Array)</string>
     <string name="sample_2">二进制GL程序(Binary GL Program)</string>
     <string name="sample_3">栅栏(Fence)</string>
     <string name="sample_4">多重目标渲染(Multiple Render Target)</string>
     <string name="sample_5">VBO和IBO(VBO and IBO)</string>
+    <string name="sample_6">EGL(EGL)</string>
 </resources>
