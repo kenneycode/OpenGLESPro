@@ -330,6 +330,12 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         cameraUpX = 0f
         cameraUpY = 1f
         cameraUpZ = 2f
+        nearPlaneLeft = -1f
+        nearPlaneRight = 1f
+        nearPlaneBottom = -1f
+        nearPlaneTop = 1f
+        nearPlane = 1f
+        farPlane = 100f
     }
 
 }
