@@ -64,7 +64,13 @@ class SampleMatrixTransform : Fragment() {
             ParameterItem("lookAtZ", 0f),
             ParameterItem("cameraUpX", 0f),
             ParameterItem("cameraUpY", 1f),
-            ParameterItem("cameraUpZ", 0f)
+            ParameterItem("cameraUpZ", 0f),
+            ParameterItem("nearPlaneLeft", -1f),
+            ParameterItem("nearPlaneRight", 1f),
+            ParameterItem("nearPlaneBottom", -1f),
+            ParameterItem("nearPlaneTop", 1f),
+            ParameterItem("nearPlane", 1f),
+            ParameterItem("farPlane", 100f)
         )
 
         val layoutManager = LinearLayoutManager(activity)

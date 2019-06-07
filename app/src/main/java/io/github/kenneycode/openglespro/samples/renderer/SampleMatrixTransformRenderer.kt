@@ -92,6 +92,12 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
     private var cameraUpX = 0f
     private var cameraUpY = 1f
     private var cameraUpZ = 2f
+    private var nearPlaneLeft = -1f
+    private var nearPlaneRight = 1f
+    private var nearPlaneBottom = -1f
+    private var nearPlaneTop = 1f
+    private var nearPlane = 1f
+    private var farPlane = 100f
 
     override fun onDrawFrame(gl: GL10?) {
 
@@ -136,11 +142,23 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
 
         // 视图矩阵计算
         // Calculate the View matrix
-        Matrix.setLookAtM(viewMatrix, 0, cameraPositionX, cameraPositionY, cameraPositionZ, lookAtX, lookAtY, lookAtZ, cameraUpX, cameraUpY, cameraUpZ)
+        Matrix.setLookAtM(
+                viewMatrix,
+                0,
+                cameraPositionX, cameraPositionY, cameraPositionZ,
+                lookAtX, lookAtY, lookAtZ,
+                cameraUpX, cameraUpY, cameraUpZ
+        )
 
-        // 投影矩阵计算
+        // 透视投影矩阵计算
         // Calculate the Project matrix
-        Matrix.frustumM(projectMatrix, 0, -1f, 1f, -1f, 1f, 1f, 100f)
+        Matrix.frustumM(
+                projectMatrix,
+                0,
+                nearPlaneLeft, nearPlaneRight, nearPlaneBottom, nearPlaneTop,
+                nearPlane,
+                farPlane
+        )
 
         // MVP矩阵计算
         // Calculate the MVP matrix
@@ -284,6 +302,12 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
             "cameraUpX" -> { cameraUpX = parameterValue }
             "cameraUpY" -> { cameraUpY = parameterValue }
             "cameraUpZ" -> { cameraUpZ = parameterValue }
+            "nearPlaneLeft" -> { nearPlaneLeft = parameterValue }
+            "nearPlaneRight" -> { nearPlaneRight = parameterValue }
+            "nearPlaneBottom" -> { nearPlaneBottom = parameterValue }
+            "nearPlaneTop" -> { nearPlaneTop = parameterValue }
+            "nearPlane" -> { nearPlane = parameterValue }
+            "farPlane" -> { farPlane = parameterValue }
         }
     }
     
