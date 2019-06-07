@@ -7,4 +7,5 @@
     <string name="sample_4">多重目标渲染(Multiple Render Target)</string>
     <string name="sample_5">VBO和IBO(VBO and IBO)</string>
     <string name="sample_6">EGL(EGL)</string>
+    <string name="sample_7">矩阵变换(Matrix Transform)</string>
 </resources>

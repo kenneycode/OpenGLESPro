@@ -25,7 +25,8 @@ class SimpleActivity : AppCompatActivity() {
                 SampleFenceSync(),
                 SampleMultiRenderTarget(),
                 SampleVBOAndIBO(),
-                SampleEGL()
+                SampleEGL(),
+                SampleMatrixTransform()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

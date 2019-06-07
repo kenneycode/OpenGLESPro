@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import io.github.kenneycode.openglespro.R
 
 /**
  *
@@ -42,7 +41,8 @@ class MainActivity : AppCompatActivity() {
                     resources.getString(R.string.sample_3),
                     resources.getString(R.string.sample_4),
                     resources.getString(R.string.sample_5),
-                    resources.getString(R.string.sample_6))
+                    resources.getString(R.string.sample_6),
+                    resources.getString(R.string.sample_7))
 
         override fun onCreateViewHolder(p0: ViewGroup, p1: Int): VH {
             val view = LayoutInflater.from(p0.context).inflate(R.layout.layout_sample_list_item, p0, false)
