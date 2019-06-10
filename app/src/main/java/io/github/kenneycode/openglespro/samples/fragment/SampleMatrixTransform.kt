@@ -46,49 +46,58 @@ class SampleMatrixTransform : Fragment() {
         glSurfaceView.setRenderer(renderer)
         glSurfaceView.renderMode = GLSurfaceView.RENDERMODE_WHEN_DIRTY
 
-        val parameters = arrayOf(
-            ParameterItem("translateX", 0f),
-            ParameterItem("translateY", 0f),
-            ParameterItem("translateZ", 0f),
-            ParameterItem("rotateX", 0f),
-            ParameterItem("rotateY", 0f),
-            ParameterItem("rotateZ", 0f),
-            ParameterItem("scaleX", 1f),
-            ParameterItem("scaleY", 1f),
-            ParameterItem("scaleZ", 1f),
-            ParameterItem("cameraPositionX", 0f),
-            ParameterItem("cameraPositionY", 0f),
-            ParameterItem("cameraPositionZ", 2f),
-            ParameterItem("lookAtX", 0f),
-            ParameterItem("lookAtY", 0f),
-            ParameterItem("lookAtZ", 0f),
-            ParameterItem("cameraUpX", 0f),
-            ParameterItem("cameraUpY", 1f),
-            ParameterItem("cameraUpZ", 0f),
-            ParameterItem("nearPlaneLeft", -1f),
-            ParameterItem("nearPlaneRight", 1f),
-            ParameterItem("nearPlaneBottom", -1f),
-            ParameterItem("nearPlaneTop", 1f),
-            ParameterItem("nearPlane", 1f),
-            ParameterItem("farPlane", 100f)
-        )
+        glSurfaceView.post {
+            val parameters = getParameterItems()
+            val layoutManager = LinearLayoutManager(activity)
+            layoutManager.orientation = RecyclerView.VERTICAL
+            rootView.parameterList.layoutManager = layoutManager
+            val adapter = Adapter(parameters)
+            adapter.onParameterChangeCallback = renderer
+            rootView.parameterList.adapter = adapter
 
-        val layoutManager = LinearLayoutManager(activity)
-        layoutManager.orientation = RecyclerView.VERTICAL
-        rootView.parameterList.layoutManager = layoutManager
-        val adapter = Adapter(parameters)
-        adapter.onParameterChangeCallback = renderer
-        rootView.parameterList.adapter = adapter
-
-        rootView.resetButton.setOnClickListener {
-            renderer.onParameterReset()
-            glSurfaceView.requestRender()
+            rootView.resetButton.setOnClickListener {
+                renderer.onParameterReset()
+                adapter.parameters = getParameterItems()
+                adapter.notifyDataSetChanged()
+                glSurfaceView.requestRender()
+            }
         }
+
+
 
         return rootView
     }
 
-    inner class Adapter(private val parameters: Array<ParameterItem>) : RecyclerView.Adapter<VH>() {
+    fun getParameterItems(): Array<ParameterItem> {
+        return arrayOf(
+                ParameterItem("translateX", 0f),
+                ParameterItem("translateY", 0f),
+                ParameterItem("translateZ", 0f),
+                ParameterItem("rotateX", 0f),
+                ParameterItem("rotateY", 0f),
+                ParameterItem("rotateZ", 0f),
+                ParameterItem("scaleX", 1f),
+                ParameterItem("scaleY", 1f),
+                ParameterItem("scaleZ", 1f),
+                ParameterItem("cameraPositionX", 0f),
+                ParameterItem("cameraPositionY", 0f),
+                ParameterItem("cameraPositionZ", 5f),
+                ParameterItem("lookAtX", 0f),
+                ParameterItem("lookAtY", 0f),
+                ParameterItem("lookAtZ", 0f),
+                ParameterItem("cameraUpX", 0f),
+                ParameterItem("cameraUpY", 1f),
+                ParameterItem("cameraUpZ", 0f),
+                ParameterItem("nearPlaneLeft", -1f),
+                ParameterItem("nearPlaneRight", 1f),
+                ParameterItem("nearPlaneBottom", - glSurfaceView.height.toFloat() / glSurfaceView.width),
+                ParameterItem("nearPlaneTop", glSurfaceView.height.toFloat() / glSurfaceView.width),
+                ParameterItem("nearPlane", 2f),
+                ParameterItem("farPlane", 100f)
+        )
+    }
+
+    inner class Adapter(var parameters: Array<ParameterItem>) : RecyclerView.Adapter<VH>() {
 
         lateinit var onParameterChangeCallback: OnParameterChangeCallback
 
@@ -105,14 +114,14 @@ class SampleMatrixTransform : Fragment() {
             vh.parameterValue.text = String.format("%.2f", parameters[index].value)
             vh.reduceButton.setOnClickListener {
                 val oldValue = vh.parameterValue.text.toString().toFloat()
-                val newValue = oldValue - 0.1f
+                val newValue = oldValue - if (parameters[index].key.startsWith("scale")) { 0.1f } else { 1f }
                 vh.parameterValue.text = String.format("%.2f", newValue)
                 onParameterChangeCallback.onParameterChange(parameters[index].key, newValue)
                 glSurfaceView.requestRender()
             }
             vh.addButton.setOnClickListener {
                 val oldValue = vh.parameterValue.text.toString().toFloat()
-                val newValue = oldValue + 0.1f
+                val newValue = oldValue + if (parameters[index].key.startsWith("scale")) { 0.1f } else { 1f }
                 vh.parameterValue.text = String.format("%.2f", newValue)
                 onParameterChangeCallback.onParameterChange(parameters[index].key, newValue)
                 glSurfaceView.requestRender()

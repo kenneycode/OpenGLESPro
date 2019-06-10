@@ -53,13 +53,99 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
 
     // 三角形顶点数据
     // The vertex data of a triangle
-    private val vertexData = floatArrayOf(-1f, -1f, -1f, 1f, 1f, 1f, -1f, -1f, 1f, 1f, 1f, -1f)
-    private val VERTEX_COMPONENT_COUNT = 2
+    private val vertexData = floatArrayOf(
+            // 正面
+            // front face
+            -1f, -1f, 1f,
+            -1f, 1f, 1f,
+            1f, 1f, 1f,
+            -1f, -1f, 1f,
+            1f, 1f, 1f,
+            1f, -1f, 1f,
+            // 背面
+            // back face
+            -1f, -1f, -1f,
+            -1f, 1f, -1f,
+            1f, 1f, -1f,
+            -1f, -1f, -1f,
+            1f, 1f, -1f,
+            1f, -1f, -1f,
+            // 顶面
+            // Top face
+            -1f, 1f, -1f,
+            -1f, 1f, 1f,
+            1f, 1f, 1f,
+            -1f, 1f, -1f,
+            1f, 1f, 1f,
+            1f, 1f, -1f,
+            // 底面
+            // Bottom face
+            -1f, -1f, -1f,
+            -1f, -1f, 1f,
+            1f, -1f, 1f,
+            -1f, -1f, -1f,
+            1f, -1f, 1f,
+            1f, -1f, -1f,
+//            // 左面
+//            // Left face
+            -1f, -1f, -1f,
+            -1f, -1f, 1f,
+            -1f, 1f, 1f,
+            -1f, -1f, -1f,
+            -1f, 1f, 1f,
+            -1f, 1f, -1f,
+            // 右面
+            // Right face
+            1f, -1f, -1f,
+            1f, -1f, 1f,
+            1f, 1f, 1f,
+            1f, -1f, -1f,
+            1f, 1f, 1f,
+            1f, 1f, -1f
+    )
+    private val VERTEX_COMPONENT_COUNT = 3
     private lateinit var vertexDataBuffer : FloatBuffer
 
     // 纹理坐标
     // The texture coordinate
-    private val textureCoordinateData = floatArrayOf(0f, 1f, 0f, 0f, 1f, 0f, 0f, 1f, 1f, 0f, 1f, 1f)
+    private val textureCoordinateData = floatArrayOf(
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f,
+            0f, 1f,
+            0f, 0f,
+            1f, 0f,
+            0f, 1f,
+            1f, 0f,
+            1f, 1f
+    )
     private val TEXTURE_COORDINATE_COMPONENT_COUNT = 2
     private lateinit var textureCoordinateDataBuffer : FloatBuffer
 
@@ -74,30 +160,30 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
     private val LOCATION_UNIFORM_MVP = 2
     private val LOCATION_UNIFORM_TEXTURE = 0
 
-    private var translateX = 0f
-    private var translateY = 0f
-    private var translateZ = 0f
-    private var rotateX = 0f
-    private var rotateY = 0f
-    private var rotateZ = 0f
-    private var scaleX = 1f
-    private var scaleY = 1f
-    private var scaleZ = 1f
-    private var cameraPositionX = 0f
-    private var cameraPositionY = 0f
-    private var cameraPositionZ = 2f
-    private var lookAtX = 0f
-    private var lookAtY = 0f
-    private var lookAtZ = 0f
-    private var cameraUpX = 0f
-    private var cameraUpY = 1f
-    private var cameraUpZ = 2f
-    private var nearPlaneLeft = -1f
-    private var nearPlaneRight = 1f
-    private var nearPlaneBottom = -1f
-    private var nearPlaneTop = 1f
-    private var nearPlane = 1f
-    private var farPlane = 100f
+    var translateX = 0f
+    var translateY = 0f
+    var translateZ = 0f
+    var rotateX = 0f
+    var rotateY = 0f
+    var rotateZ = 0f
+    var scaleX = 1f
+    var scaleY = 1f
+    var scaleZ = 1f
+    var cameraPositionX = 0f
+    var cameraPositionY = 0f
+    var cameraPositionZ = 5f
+    var lookAtX = 0f
+    var lookAtY = 0f
+    var lookAtZ = 0f
+    var cameraUpX = 0f
+    var cameraUpY = 1f
+    var cameraUpZ = 0f
+    var nearPlaneLeft = -1f
+    var nearPlaneRight = 1f
+    var nearPlaneBottom = -1f
+    var nearPlaneTop = 1f
+    var nearPlane = 2f
+    var farPlane = 100f
 
     override fun onDrawFrame(gl: GL10?) {
 
@@ -108,6 +194,8 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         // 清屏
         // Clear the screen
         GLES30.glClear(GLES30.GL_COLOR_BUFFER_BIT)
+
+        GLES30.glClear(GLES30.GL_DEPTH_BUFFER_BIT)
 
         // 设置视口，这里设置为整个GLSurfaceView区域
         // Set the viewport to the full GLSurfaceView
@@ -179,6 +267,8 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         // Record the width and height of the GLSurfaceView
         glSurfaceViewWidth = width
         glSurfaceViewHeight = height
+        nearPlaneBottom = -height.toFloat() / width
+        nearPlaneTop = height.toFloat() / width
 
     }
 
@@ -251,7 +341,7 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         // 将图片解码并加载到纹理中
         // Decode image and load it into texture
                 GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+                val bitmap = Util.decodeBitmapFromAssets("image_2.jpg")
                 GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
                 val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
                 bitmap.copyPixelsToBuffer(b)
@@ -269,7 +359,7 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_TEXTURE, while in OpenGL 2.0 we have to query the location of the parameter
         GLES30.glUniform1i(LOCATION_UNIFORM_TEXTURE, 0)
 
-        GLES30.glEnable(GLES30.GL_DEPTH)
+        GLES30.glEnable(GLES30.GL_DEPTH_TEST)
         
     }
 
@@ -323,18 +413,18 @@ class SampleMatrixTransformRenderer : GLSurfaceView.Renderer, OnParameterChangeC
         scaleZ = 1f
         cameraPositionX = 0f
         cameraPositionY = 0f
-        cameraPositionZ = 2f
+        cameraPositionZ = 5f
         lookAtX = 0f
         lookAtY = 0f
         lookAtZ = 0f
         cameraUpX = 0f
         cameraUpY = 1f
-        cameraUpZ = 2f
+        cameraUpZ = 0f
         nearPlaneLeft = -1f
         nearPlaneRight = 1f
-        nearPlaneBottom = -1f
-        nearPlaneTop = 1f
-        nearPlane = 1f
+        nearPlaneBottom = -glSurfaceViewHeight.toFloat() / glSurfaceViewWidth
+        nearPlaneTop = glSurfaceViewHeight.toFloat() / glSurfaceViewWidth
+        nearPlane = 2f
         farPlane = 100f
     }
 
