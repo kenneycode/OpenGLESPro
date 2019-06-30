@@ -52,6 +52,8 @@ Now, this project contains the following samples.
   一个使用栅栏做GL命令同步的例子
 
   a sample of using fence to synchronize the GL commands.
+  
+  https://juejin.im/post/5d18c6685188253c271789f5
 
   
 
