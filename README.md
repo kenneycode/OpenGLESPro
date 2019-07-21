@@ -53,7 +53,7 @@ Now, this project contains the following samples.
 
   a sample of using fence to synchronize the GL commands.
   
-  https://juejin.im/post/5d18c6685188253c271789f5
+  https://juejin.im/post/5d33ed275188257f3850d5fb
 
   
 
@@ -92,4 +92,14 @@ Now, this project contains the following samples.
   This sample demonstrates matrix transform, including model matrix, view matrix and project matrix
 
   <https://juejin.im/post/5cfe6accf265da1bc94ee33b>
+
+  
+
+- **SampleColorBlend**
+
+  颜色混合例子
+
+  This sample demonstrates color blend
+
+  https://juejin.im/post/5d33ee065188257bd829be0c
 
