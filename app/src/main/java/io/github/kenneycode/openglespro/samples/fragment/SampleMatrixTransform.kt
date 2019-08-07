@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import io.github.kenneycode.openglespro.R
 import io.github.kenneycode.openglespro.samples.renderer.OnParameterChangeCallback
 import io.github.kenneycode.openglespro.samples.renderer.SampleMatrixTransformRenderer
-import kotlinx.android.synthetic.main.fragment_sample_matrix_transform.*
 import kotlinx.android.synthetic.main.fragment_sample_matrix_transform.view.*
 import kotlinx.android.synthetic.main.item_parameter_list.view.*
 
@@ -62,13 +61,10 @@ class SampleMatrixTransform : Fragment() {
                 glSurfaceView.requestRender()
             }
         }
-
-
-
         return rootView
     }
 
-    fun getParameterItems(): Array<ParameterItem> {
+    private fun getParameterItems(): Array<ParameterItem> {
         return arrayOf(
                 ParameterItem("translateX", 0f),
                 ParameterItem("translateY", 0f),

@@ -25,42 +25,42 @@ import javax.microedition.khronos.opengles.GL10
 class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
 
     private val vertexShaderCode =
-                    "#version 300 es\n" +
-                    "precision mediump float;\n" +
-                    "layout(location = 0) in vec4 a_position;\n" +
-                    "layout(location = 1) in vec2 a_textureCoordinate;\n" +
-                    "out vec2 v_textureCoordinate;\n" +
-                    "void main() {\n" +
-                    "    v_textureCoordinate = a_textureCoordinate;\n" +
-                    "    gl_Position = a_position;\n" +
-                    "}"
+        "#version 300 es\n" +
+        "precision mediump float;\n" +
+        "layout(location = 0) in vec4 a_position;\n" +
+        "layout(location = 1) in vec2 a_textureCoordinate;\n" +
+        "out vec2 v_textureCoordinate;\n" +
+        "void main() {\n" +
+        "    v_textureCoordinate = a_textureCoordinate;\n" +
+        "    gl_Position = a_position;\n" +
+        "}"
 
     // 多渲染目标fragment shader，这里我们输出三种效果，分别将纹理的R、G、B三个通道设为1.0
     // The fragment shader of multiple render targets. Here we render 3 effects, which set the R, G and B to 1.0 respectively
     private val fragmentShaderMRTCode =
-                    "#version 300 es\n" +
-                    "precision mediump float;\n" +
-                    "layout(location = 0) out vec4 fragColor0;\n" +
-                    "layout(location = 1) out vec4 fragColor1;\n" +
-                    "layout(location = 2) out vec4 fragColor2;\n" +
-                    "uniform sampler2D u_texture;\n" +
-                    "in vec2 v_textureCoordinate;\n" +
-                    "void main() {\n" +
-                    "    vec4 color = texture(u_texture, v_textureCoordinate);\n" +
-                    "    fragColor0 = vec4(1.0, color.g, color.b, color.a);\n" +
-                    "    fragColor1 = vec4(color.r, 1.0, color.b, color.a);\n" +
-                    "    fragColor2 = vec4(color.r, color.g, 1.0, color.a);\n" +
-                    "}"
+        "#version 300 es\n" +
+        "precision mediump float;\n" +
+        "layout(location = 0) out vec4 fragColor0;\n" +
+        "layout(location = 1) out vec4 fragColor1;\n" +
+        "layout(location = 2) out vec4 fragColor2;\n" +
+        "uniform sampler2D u_texture;\n" +
+        "in vec2 v_textureCoordinate;\n" +
+        "void main() {\n" +
+        "    vec4 color = texture(u_texture, v_textureCoordinate);\n" +
+        "    fragColor0 = vec4(1.0, color.g, color.b, color.a);\n" +
+        "    fragColor1 = vec4(color.r, 1.0, color.b, color.a);\n" +
+        "    fragColor2 = vec4(color.r, color.g, 1.0, color.a);\n" +
+        "}"
 
     private val fragmentShaderCode =
-            "#version 300 es\n" +
-                    "precision mediump float;\n" +
-                    "layout(location = 0) out vec4 fragColor;\n" +
-                    "in vec2 v_textureCoordinate;\n" +
-                    "uniform sampler2D u_texture;\n" +
-                    "void main() {\n" +
-                    "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
-                    "}"
+        "#version 300 es\n" +
+        "precision mediump float;\n" +
+        "layout(location = 0) out vec4 fragColor;\n" +
+        "in vec2 v_textureCoordinate;\n" +
+        "uniform sampler2D u_texture;\n" +
+        "void main() {\n" +
+        "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
+        "}"
 
     private var glSurfaceViewWidth = 0
     private var glSurfaceViewHeight = 0
@@ -139,7 +139,7 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
             GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
             GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, targets[i])
             GLES30.glUniform1i(GLES30.glGetUniformLocation(programIdRTS, "u_texture"), 0)
-                        GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, offsetVertexData.size / VERTEX_COMPONENT_COUNT)
+            GLES30.glDrawArrays(GLES30.GL_TRIANGLES, 0, offsetVertexData.size / VERTEX_COMPONENT_COUNT)
         }
     }
 
@@ -168,8 +168,8 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
             GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
             GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
             GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, glSurfaceViewWidth, glSurfaceViewHeight, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, null)
-                        GLES30.glFramebufferTexture2D(GLES30.GL_FRAMEBUFFER, GLES30.GL_COLOR_ATTACHMENT0 + i, GLES30.GL_TEXTURE_2D, targets[i], 0)
-                                    GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0)
+            GLES30.glFramebufferTexture2D(GLES30.GL_FRAMEBUFFER, GLES30.GL_COLOR_ATTACHMENT0 + i, GLES30.GL_TEXTURE_2D, targets[i], 0)
+            GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, 0)
         }
 
         // 将0~2号attachment设置为draw目标
@@ -238,20 +238,20 @@ class SampleMultiRenderTargetRenderer : GLSurfaceView.Renderer {
                 val textures = IntArray(1)
         GLES30.glGenTextures(textures.size, textures, 0)
         imageTexture = textures[0]
-                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
-                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-                bitmap.copyPixelsToBuffer(b)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+        val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
+        val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+        bitmap.copyPixelsToBuffer(b)
         b.position(0)
-                GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width, bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-                bitmap.recycle()
-                GLES30.glUseProgram(programIdMTR)
-                val locationUniformTexture = GLES30.glGetUniformLocation(programIdMTR, "u_texture")
+        bitmap.recycle()
+        GLES30.glUseProgram(programIdMTR)
+        val locationUniformTexture = GLES30.glGetUniformLocation(programIdMTR, "u_texture")
         GLES30.glUniform1i(locationUniformTexture, 0)
         
         val targetCount = 3

@@ -167,7 +167,7 @@ class SampleFenceSyncRenderer(val imageView : ImageView) : GLSurfaceView.Rendere
         GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, 0)
 
         GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
 
         GLES30.glClearColor(0.9f, 0.9f, 0.9f, 1f)
 
@@ -189,10 +189,10 @@ class SampleFenceSyncRenderer(val imageView : ImageView) : GLSurfaceView.Rendere
         glSurfaceViewHeight = height
 
         GLES30.glActiveTexture(GLES30.GL_TEXTURE1)
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, sharedTexture)
-                GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, frameBuffer)
-                GLES30.glFramebufferTexture2D(GLES30.GL_FRAMEBUFFER, GLES30.GL_COLOR_ATTACHMENT0, GLES30.GL_TEXTURE_2D, sharedTexture, 0)
-                GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, glSurfaceViewWidth, glSurfaceViewHeight, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, null)
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, sharedTexture)
+        GLES30.glBindFramebuffer(GLES30.GL_FRAMEBUFFER, frameBuffer)
+        GLES30.glFramebufferTexture2D(GLES30.GL_FRAMEBUFFER, GLES30.GL_COLOR_ATTACHMENT0, GLES30.GL_TEXTURE_2D, sharedTexture, 0)
+        GLES30.glTexImage2D(GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, glSurfaceViewWidth, glSurfaceViewHeight, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, null)
     }
 
     override fun onSurfaceCreated(gl: GL10?, config: EGLConfig?) {
@@ -239,22 +239,22 @@ class SampleFenceSyncRenderer(val imageView : ImageView) : GLSurfaceView.Rendere
         val textures = IntArray(1)
         GLES30.glGenTextures(textures.size, textures, 0)
 
-                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textures[0])
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+        val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, textures[0])
         imageTexture = textures[0]
-                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-                bitmap.copyPixelsToBuffer(b)
+        val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+        bitmap.copyPixelsToBuffer(b)
         b.position(0)
-                GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
+        GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexImage2D(
-            GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
-            bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-                bitmap.recycle()
-                GLES30.glUniform1i(LOCATION_UNIFORM_POSITION, 0)
+        GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
+        bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
+        bitmap.recycle()
+        GLES30.glUniform1i(LOCATION_UNIFORM_POSITION, 0)
         
         val sharedTextures = IntArray(1)
         GLES30.glGenTextures(sharedTextures.size, sharedTextures, 0)
