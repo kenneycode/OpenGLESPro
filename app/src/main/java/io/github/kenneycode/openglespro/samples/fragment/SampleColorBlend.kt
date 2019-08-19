@@ -28,7 +28,7 @@ class SampleColorBlend : Fragment() {
         // 设置RGBA颜色缓冲、深度缓冲及stencil缓冲大小
         // Set the size of RGBA、depth and stencil vertexDataBuffer
         glSurfaceView.setEGLConfigChooser(8, 8, 8, 8, 0, 0)
-        // 设置GL版本，这里设置为2.0
+        // 设置GL版本，这里设置为3.0
         // Set GL version, here I set it to 3.0
         glSurfaceView.setEGLContextClientVersion(3)
         // 设置对应sample的渲染器
