@@ -177,20 +177,20 @@ class SampleShaderRenderer : GLSurfaceView.Renderer {
 
         // 将图片解码并加载到纹理中
         // Decode image and load it into texture
-                GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
-                val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
-                GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
-                val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
-                bitmap.copyPixelsToBuffer(b)
+        GLES30.glActiveTexture(GLES30.GL_TEXTURE0)
+        val bitmap = Util.decodeBitmapFromAssets("image_0.jpg")
+        GLES30.glBindTexture(GLES30.GL_TEXTURE_2D, imageTexture)
+        val b = ByteBuffer.allocate(bitmap.width * bitmap.height * 4)
+        bitmap.copyPixelsToBuffer(b)
         b.position(0)
                 GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MIN_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_MAG_FILTER, GLES30.GL_LINEAR)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_S, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexParameteri(GLES30.GL_TEXTURE_2D, GLES30.GL_TEXTURE_WRAP_T, GLES30.GL_CLAMP_TO_EDGE)
         GLES30.glTexImage2D(
-            GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
-            bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
-                bitmap.recycle()
+        GLES30.GL_TEXTURE_2D, 0, GLES30.GL_RGBA, bitmap.width,
+        bitmap.height, 0, GLES30.GL_RGBA, GLES30.GL_UNSIGNED_BYTE, b)
+        bitmap.recycle()
         
         // 启动对应位置的参数，这里直接使用LOCATION_UNIFORM_TEXTURE，而无需像OpenGL 2.0那样需要先获取参数的location
         // Enable the parameter of the location. Here we can simply use LOCATION_UNIFORM_TEXTURE, while in OpenGL 2.0 we have to query the location of the parameter

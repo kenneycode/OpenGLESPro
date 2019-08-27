@@ -26,24 +26,24 @@ class SampleBinaryProgramRenderer : GLSurfaceView.Renderer {
 
     private val vertexShaderCode =
         "#version 300 es\n" +
-                "precision mediump float;\n" +
-                "layout(location = 0) in vec4 a_position;\n" +
-                "layout(location = 1) in vec2 a_textureCoordinate;\n" +
-                "out vec2 v_textureCoordinate;\n" +
-                "void main() {\n" +
-                "    v_textureCoordinate = a_textureCoordinate;\n" +
-                "    gl_Position = a_position;\n" +
-                "}"
+        "precision mediump float;\n" +
+        "layout(location = 0) in vec4 a_position;\n" +
+        "layout(location = 1) in vec2 a_textureCoordinate;\n" +
+        "out vec2 v_textureCoordinate;\n" +
+        "void main() {\n" +
+        "    v_textureCoordinate = a_textureCoordinate;\n" +
+        "    gl_Position = a_position;\n" +
+        "}"
 
     private val fragmentShaderCode =
         "#version 300 es\n" +
-                "precision mediump float;\n" +
-                "layout(location = 0) out vec4 fragColor;\n" +
-                "in vec2 v_textureCoordinate;\n" +
-                "uniform sampler2D u_texture;\n" +
-                "void main() {\n" +
-                "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
-                "}"
+        "precision mediump float;\n" +
+        "layout(location = 0) out vec4 fragColor;\n" +
+        "in vec2 v_textureCoordinate;\n" +
+        "uniform sampler2D u_texture;\n" +
+        "void main() {\n" +
+        "    fragColor = texture(u_texture, v_textureCoordinate);\n" +
+        "}"
 
     // GLSurfaceView的宽高
     // The width and height of GLSurfaceView
