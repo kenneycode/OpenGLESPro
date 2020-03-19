@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="#000000">
+
+    <FrameLayout
+        android:id="@+id/glSurfaceViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <Button
+        android:id="@+id/directionalLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="平行光(Directional Light)"/>
+
+    <Button
+        android:id="@+id/pointLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="点光(Point Light)"
+        android:layout_below="@+id/directionalLight"/>
+
+    <Button
+        android:id="@+id/spotLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="聚光(Spot Light)"
+        android:layout_below="@+id/pointLight"/>
+
+    <Button
+        android:id="@+id/bumped"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="法向图(Bumped)"
+        android:layout_below="@+id/spotLight"/>
+
+
+</RelativeLayout>

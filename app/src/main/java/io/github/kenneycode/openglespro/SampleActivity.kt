@@ -27,7 +27,8 @@ class SimpleActivity : AppCompatActivity() {
                 SampleVBOAndIBO(),
                 SampleEGL(),
                 SampleMatrixTransform(),
-                SampleColorBlend()
+                SampleColorBlend(),
+                SampleLighting()
         )
 
     override fun onCreate(savedInstanceState: Bundle?) {

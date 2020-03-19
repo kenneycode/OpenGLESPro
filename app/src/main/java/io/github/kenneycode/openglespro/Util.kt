@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.opengl.GLES30
 import android.util.Log
+import java.nio.charset.Charset
 
 /**
  *
@@ -29,6 +30,14 @@ class Util {
                 Log.e("debug", "bitmap decode fail, path = $filename")
             }
             return bitmap
+        }
+
+        fun loadShaderFromAssets(path: String): String {
+            val inputStream = context.assets.open(path)
+            val length = inputStream.available()
+            val bytes = ByteArray(length)
+            inputStream.read(bytes)
+            return String(bytes, Charset.defaultCharset())
         }
 
         fun checkGLError() {
